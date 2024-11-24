@@ -140,9 +140,7 @@
 
 == Formalized Formal Logic
 
-#image("./images/FFL.png", height: 4em)
-#text(size: 2em)[Formalized Formal Logic
-]
+#image("./images/FFL.png", height: 4em)#text(size: 2em)[Formalized Formal Logic]
 https://github.com/FormalizedFormalLogic
 
 数理論理学の様々な事実や定理をLean4で形式化するプロジェクト．自分と齋藤氏が中心となって進めている．
@@ -359,7 +357,7 @@ theorem GL_MDP (h : (Hilbert.GL ℕ) ⊢! □φ₁ ⋎ □φ₂) : (Hilbert.GL �
   $T$ を $PA$ の無矛盾な再帰的可算な拡大理論とする．
   このとき，次を満たす証明可能性述語 $Bew_T$ を構成できる．
 
-  $T$ の無矛盾性を表す文 $Con_T :equiv Bew_T (GoedelNum(bot))$ は $T$ で証明できない．
+  $T$ の無矛盾性を表す文 $Con_T :equiv not Bew_T (GoedelNum(bot))$ は $T$ で証明できない．
   すなわち $T nvdash Con_T$．
 ]<thm:goedel2>
 
