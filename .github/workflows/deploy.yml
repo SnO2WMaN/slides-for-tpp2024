@@ -28,7 +28,15 @@ jobs:
           rm ttf/shippori-antique-b1-[0-9]*
           mv ttf /usr/share/fonts/shippori-antique-b1
           fc-cache -fv
-      - uses: typst-community/setup-typst@v3 
+      - name: Install Julia Mono
+        run: |
+          cd ${{ runner.temp }}
+          wget -O julia-mono.zip https://github.com/cormullion/juliamono/releases/download/v0.058/JuliaMono-ttf.zip
+          unzip julia-mono.zip -d julia-mono
+          rm julia-mono/LICENSE
+          mv julia-mono /usr/share/fonts/julia-mono
+          fc-cache -fv
+      - uses: typst-community/setup-typst@v3
       - run: typst fonts
       - run: typst compile main.typ main.pdf
       - run: |
