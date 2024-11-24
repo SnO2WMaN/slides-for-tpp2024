@@ -356,7 +356,7 @@ theorem GL_MDP (h : (Hilbert.GL ℕ) ⊢! □φ₁ ⋎ □φ₂) : (Hilbert.GL �
 #pagebreak()
 
 #theorem([第2不完全性定理])[
-  $PA$ の適当な無矛盾なら拡大理論を $T$ とする．
+  $T$ を $PA$ の無矛盾な再帰的可算な拡大理論とする．
   このとき，次を満たす証明可能性述語 $Bew_T$ を構成できる．
 
   $T$ の無矛盾性を表す文 $Con_T :equiv Bew_T (GoedelNum(bot))$ は $T$ で証明できない．
