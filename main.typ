@@ -94,7 +94,11 @@
 #set heading(numbering: numbly("{1}.", default: "1.1"))
 #set cite(form: "prose", style: "institute-of-electrical-and-electronics-engineers")
 
+#show link: underline
+
 #title-slide()
+
+このスライドは #link("https://sno2wman.github.io/slides-for-tpp2024/main.pdf") で閲覧出来ます．
 
 = 様相論理について
 
