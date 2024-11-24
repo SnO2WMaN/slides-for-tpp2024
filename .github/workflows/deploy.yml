@@ -26,11 +26,11 @@ jobs:
           wget -O shippori-antique-b1.zip https://api.fontsource.org/v1/download/shippori-antique-b1
           unzip shippori-antique-b1.zip
           rm ttf/shippori-antique-b1-[0-9]*
-          mv ttf /usr/share/fonts/
+          mv ttf /usr/share/fonts/shippori-antique-b1
           fc-cache -fv
-      - uses: lvignoli/typst-action@main
-        with:
-          source_file: main.typ
+      - uses: typst-community/setup-typst@v3 
+      - run: typst fonts
+      - run: typst compile main.typ main.pdf
       - run: |
           mkdir result
           mv ./main.pdf ./result/main.pdf
