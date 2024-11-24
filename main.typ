@@ -129,26 +129,27 @@
 #definition([Kripke意味論])[
   - 世界の非空集合 $W$ と $W$ 上の2項関係 $R colon W times W$ の組 $angle.l W, R angle.r$ を*Kripkeフレーム*という．
   - フレーム $angle.l W,R angle.r$ とその上の付値関数 $V colon upright("Var") times W -> 2$ の組 $angle.l W, R, V angle.r$ を*Kripkeモデル*という．
-  - 論理式の真偽は $W$ の元に依存して決まる．$M = angle.l W,R,V angle.r$ と $x in W$ に対して，
+  - 論理式の充足関係は世界に依存して決まる．$M = angle.l W,R,V angle.r$ と $x in W$ に対して，
     - $M, x vDash p <==> V(x,p) = 1$ 「$x$ 上で $p$ が真である」
-    - $M, x vDash box phi <==> forall y, x R y ==> V(w,p) = 0$ 「$x$ から行ける全ての世界で $phi$ は真」
-  - モデル $M = angle.l W,R,V angle.r$ に対し，全ての $x in W$ で $phi$ が真なら，*$M vDash phi$ 「$phi$ はモデル $M$ で妥当」*という．
-  - フレーム $F$ に対し，全ての $F$ 上の付値 $V$ の組による モデル $M$ で $M vdash phi$ であるなら，*$F vDash phi$ 「$phi$ はフレーム $F$ で妥当」*という．
+    - $M, x vDash box phi <==> forall y, x R y ==> V(w,p) = 1$ 「$x$ から行ける全ての世界で $phi$ は真」
+  - モデル $M$ に対し，全ての世界で $phi$ が充足されるなら，*$M vDash phi$ 「$phi$ はモデル $M$ で妥当」*という．
+  - フレーム $F$ 上の任意のモデルで $phi$ が妥当であるなら，*$F vDash phi$ 「$phi$ はフレーム $F$ で妥当」*という．
 ]
 
 = 様相論理のLeanでの形式化
 
 == Formalized Formal Logic
 
-#image("./images/FFL.png", width: 4em)
-
+#image("./images/FFL.png", height: 4em)
+#text(size: 2em)[Formalize Formal Logic
+]
 https://github.com/FormalizedFormalLogic
 
 数理論理学の様々な事実や定理をLean4で形式化するプロジェクト．自分と齋藤氏が中心となって進めている．
 
 #pagebreak()
 
-齋藤氏によってこれまで形式化された事実#footnote[自動証明とカット除去定理と発表時では一旦書き直しのため破棄されている．]．
+齋藤氏によってこれまで形式化された事実．#footnote[自動証明とカット除去定理と発表時では一旦書き直しのため破棄されている．]
 
 - 古典命題論理
   - 健全性と完全性
@@ -268,11 +269,18 @@ https://github.com/FormalizedFormalLogic
 #corollary[
   $LogicK$ に 公理 $AxiomT, AxiomD, AxiomB, Axiom4, Axiom5, AxiomDot2$ を適当に付け加えた論理たちは全て対応するフレームクラスに対して完全である．
   例えば次のことが成り立つ．
-  - $LogicK$ は全てのフレームのクラスに対して完全である．
   - $LogicS4$ は 反射的/推移的，すなわち前順序のフレームのクラスについて完全である．
   - $LogicKT4B$ は 反射的/推移的/対称的，すなわち同値関係のフレームのクラスについて完全である．
   - $LogicS5$ は 反射的/推移的/Euclid的なフレームのクラスについて完全である．
 ]
+
+```lean
+instance S4.Kripke.complete : Complete (Hilbert.S4 ℕ) ReflexiveTransitiveFrameClass
+
+instance S5.Kripke.complete : Complete (Hilbert.S5 ℕ) ReflexiveEuclideanFrameClass
+```
+
+#pagebreak()
 
 #corollary[
   - 同値関係なフレームは反射的/推移的/Euclid的であり，逆も成り立つ．そのため，$LogicKT4B$ と $LogicS5$ は証明能力が等しい．
@@ -282,6 +290,12 @@ https://github.com/FormalizedFormalLogic
     LogicS4 subset.neq LogicKT4B = LogicS5
   $
 ]
+
+```lean
+theorem S4_strictlyWeakerThan_S5 : (Hilbert.S4 ℕ) <ₛ (Hilbert.S5 ℕ)
+
+theorem equiv_S5_KT4B : (Hilbert.S5 ℕ) =ₛ (Hilbert.KT4B ℕ)
+```
 
 == $LogicGL$
 
@@ -349,13 +363,21 @@ theorem GL_MDP (h : (Hilbert.GL ℕ) ⊢! □φ₁ ⋎ □φ₂) : (Hilbert.GL �
   すなわち $T nvdash Con_T$．
 ]<thm:goedel2>
 
+```lean
+abbrev bewₐ (σ : Sentence ℒₒᵣ) : Sentence ℒₒᵣ := U.provableₐ/[⌜σ⌝]
+
+abbrev consistentₐ : Sentence ℒₒᵣ := ∼U.bewₐ ⊥
+
+theorem goedel_second_incompleteness [System.Consistent T] : T ⊬ T.consistentₐ
+```
+
 不完全性定理と $LogicGL$ の形式化は成されている．よって，証明可能性論理の礎となる算術的完全性という定理も形式化したい．
 
 #definition[
   - 様相論理の命題変数を1階述語論理上の算術の文へと写す写像
     $* colon upright("Ver")_(cal("L")_upright("M")) -> upright("Sent")_(cal("L")_upright("A"))$
     を解釈と呼ぶ．
-  - $box$ を証明可能性述語 $Bew_T$ のように見るように解釈 $*$ を様相論理式へと拡張した写像 $*_(Bew_T) colon upright("Form")_(cal("L")_upright("M")) -> upright("Sent")_(cal("L")_upright("A"))$ を $Bew_T$-翻訳と呼ぶ．すなわち次を満たす．
+  - $box$ を証明可能性述語 $Bew_T$ として見るように解釈 $*$ を様相論理式へと拡張した写像 $*_(Bew_T) colon upright("Form")_(cal("L")_upright("M")) -> upright("Sent")_(cal("L")_upright("A"))$ を $Bew_T$-翻訳と呼ぶ．すなわち次を満たす．
     $
       p^(*_(Bew_T)) &|-> p^* \
       attach(bot, tr: *_(Bew_T)) &|-> bot \
@@ -459,6 +481,8 @@ Boolean代数に適当な $box$ 演算を入れて拡張した代数を考える
 特にLeanはプログラミング言語としても扱える（ことになっている）ので，
 これらの論理体系を形式化して応用的なソフトウェアなどを作ることも可能かもしれない．
 
-== 参考文献
+= 参考文献
+
+#pagebreak()
 
 #bibliography(title: none, "references.bib")
