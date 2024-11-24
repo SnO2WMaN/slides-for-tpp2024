@@ -20,6 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Shippori Antique B1
+        run: |
+          cd ${{ runner.temp }}
+          wget -O shippori-antique-b1.zip https://api.fontsource.org/v1/download/shippori-antique-b1
+          unzip shippori-antique-b1.zip
+          rm ttf/shippori-antique-b1-[0-9]*
+          mv ttf /usr/share/fonts/
+          fc-cache -fv
       - uses: lvignoli/typst-action@main
         with:
           source_file: main.typ

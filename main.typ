@@ -88,7 +88,7 @@
     institution: [神戸大学システム情報学研究科 研究生],
   ),
 )
-#set text(font: "Noto Sans CJK JP", size: 16pt)
+#set text(font: "Shippori Antique B1", size: 16pt)
 #show raw: set text(font: "JuliaMono")
 
 #set heading(numbering: numbly("{1}.", default: "1.1"))
@@ -419,7 +419,7 @@ lemma arithmetical_soundness_GL [𝔅.HBL] (h : 𝐆𝐋 ⊢! p) : ∀ {f : Real
 == 今後の展望: 様相論理の種々の計算体系の形式化および自動証明
 
 $LogicGL$ の普通のシークエント計算は論理式の集合を多重集合にするか集合にするかで議論の微細な違いが生じ，
-その他にも複雑な帰納法(2重/3重帰納法)を回すため，証明が正確に行われているのか議論の余地があった#cite(<valentini_modal_1983>, form:"normal"), #cite(<gore_valentinis_2012>, form:  "normal")．
+その他にも複雑な帰納法を回すため，証明が正確に行われているのか議論の余地があった#cite(<valentini_modal_1983>, form:"normal"), #cite(<gore_valentinis_2012>, form:  "normal")．
 
 近年 #cite(<das_cut-elimination_2021>)らによって$LogicGL$ のシークエント計算の形式化がCoqでなされた．まずはこれをLeanで再実装してみたい．
 
