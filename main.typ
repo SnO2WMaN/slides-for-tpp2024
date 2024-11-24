@@ -392,7 +392,7 @@ lemma arithmetical_soundness_GL [𝔅.HBL] (h : 𝐆𝐋 ⊢! p) : ∀ {f : Real
 - 規則 $RuleLoeb,RuleHenkin$ を用いた $LogicGL$ の別定義
 - $LogicTriv$ と $LogicVer$ が古典命題論理に帰着できること
 - $LogicGrz$ のKripke完全性
-- $LogicGL, LogicGrz$ の Boxdot Companion#footnote[$LogicGL$ で証明できる論理式の $box$ の出現を全て $boxdot$ に置き換えた論理式は $LogicGrz$ で証明できる．]
+- $LogicGL, LogicGrz$ の Boxdot Companion#footnote[$LogicGL$ で証明できる論理式の $box$ の出現を全て $boxdot$ （ただし $boxdot phi :equiv phi and box phi$）に置き換えた論理式は $LogicGrz$ で証明できる．]
 - Pure Logic of Necessitation $LogicN$ の意味論とその完全性
 
 == 今後の展望
