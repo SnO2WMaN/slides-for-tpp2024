@@ -40,11 +40,12 @@ jobs:
       - run: typst fonts
       - run: typst compile main.typ main.pdf
       - run: |
-          mkdir result
-          mv ./main.pdf ./result/main.pdf
+          mkdir _pages
+          mv ./main.pdf ./_pages/main.pdf
+          echo "<meta http-equiv=\"refresh\" content=\"0;URL='$(gh api "repos/$GITHUB_REPOSITORY" --jq '.html_url')'\">" > ./_pages/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: result/
+          path: _pages/
 
   deploy:
     runs-on: ubuntu-latest
