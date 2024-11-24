@@ -35,8 +35,8 @@
 #let Bew = $bold(upright("Pr"))$
 #let Con = $bold(upright("Con"))$
 
-#let ulcorner = $⸢$
-#let urcorner = $⸣$
+#let ulcorner = $⌈$
+#let urcorner = $⌉$
 #let GoedelNum(x) = $lr(ulcorner #x urcorner)$
 
 #let Axiom(A) = $sans(upright(#A))$
@@ -141,7 +141,7 @@
 == Formalized Formal Logic
 
 #image("./images/FFL.png", height: 4em)
-#text(size: 2em)[Formalize Formal Logic
+#text(size: 2em)[Formalized Formal Logic
 ]
 https://github.com/FormalizedFormalLogic
 
